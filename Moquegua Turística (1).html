@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Moquegua Turística</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:dark; box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);}
+html{scroll-padding-top:env(safe-area-inset-top,0px); scroll-behavior:smooth;}
+*{box-sizing:inherit; margin:0; padding:0;}
+body{font-family:'Poppins',sans-serif; min-height:100vh; color:#333; display:flex; flex-direction:column; background-color:#0c3720; background-size:cover; background-position:center; background-attachment:fixed; background-repeat:no-repeat;}
+header{background:rgba(15,67,38,.94); backdrop-filter:blur(12px); color:#fff; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:15px; padding:12px 30px; padding-top:calc(12px + env(safe-area-inset-top,0px)); border-bottom:2px solid #f5d46b; box-shadow:0 5px 20px rgba(0,0,0,.25); position:sticky; top:0; z-index:1000;}
+.header-brand{display:flex; align-items:center; gap:14px;}
+header img.logo{width:58px; height:58px; object-fit:cover; border-radius:50%; border:2px solid #f5d46b; box-shadow:0 0 12px rgba(245,212,107,.35);}
+header h1{font-size:21px; font-weight:800; letter-spacing:.3px;}
+nav{display:flex; align-items:center; flex-wrap:wrap; gap:4px;}
+nav a{position:relative; color:#fff; text-decoration:none; font-size:13px; font-weight:500; padding:9px 13px; border-radius:8px; transition:.3s; cursor:pointer;}
+nav a::after{content:""; position:absolute; width:0; height:3px; left:50%; bottom:3px; background:#f5d46b; transition:.35s; transform:translateX(-50%);}
+nav a:hover::after{width:60%;}
+nav a:hover,nav a.active{color:#f5d46b; background:rgba(255,255,255,.1);}
+main{flex:1; width:100%;}
+.view{display:none;}
+.view.active{display:block; animation:aparecer .5s ease;}
+@keyframes aparecer{from{opacity:0; transform:translateY(14px);} to{opacity:1; transform:translateY(0);}}
+footer{background:rgba(10,50,30,.96); color:#eee; text-align:center; padding:18px 15px calc(18px + env(safe-area-inset-bottom,0px)); font-size:13px; border-top:2px solid #f5d46b;}
+
+.inicio-wrap{max-width:1000px; margin:40px auto; padding:0 20px;}
+.panel{background:rgba(255,255,255,.96); padding:32px; border-radius:20px; border:1px solid rgba(245,212,107,.8); box-shadow:0 15px 40px rgba(0,0,0,.25);}
+.panel h2{color:#155c36; font-size:26px; font-weight:800; margin-bottom:14px;}
+.panel h2::after{content:""; display:block; width:65px; height:4px; margin-top:10px; background:linear-gradient(90deg,#155c36,#f5d46b); border-radius:5px;}
+.panel p{font-size:15px; line-height:1.85; color:#444; margin-bottom:16px; text-align:justify;}
+.panel img{display:block; width:100%; max-width:820px; height:auto; margin:22px auto; border-radius:16px; border:3px solid #fff; box-shadow:0 10px 25px rgba(0,0,0,.2);}
+
+.lugares-wrap{max-width:1230px; margin:0 auto; padding:35px 20px;}
+.lugares-wrap h2{color:#fff; font-size:25px; font-weight:800; text-shadow:0 3px 12px rgba(0,0,0,.5);}
+.lugares-wrap>p{color:#eee; margin:6px 0 10px;}
+.lugares-grid{display:flex; flex-wrap:wrap; justify-content:center; gap:22px; margin-top:16px;}
+.lugar{width:270px; background:#fff; padding:14px; border-radius:17px; border:1px solid #e6eadf; box-shadow:0 5px 18px rgba(0,0,0,.09); display:flex; flex-direction:column; transition:.35s;}
+.lugar:hover{transform:translateY(-8px); border-color:#f5d46b; box-shadow:0 15px 30px rgba(21,92,54,.18);}
+.lugar img{width:100%; height:160px; object-fit:cover; border-radius:10px;}
+.lugar h3{color:#155c36; font-size:16px; font-weight:700; margin:10px 0 6px;}
+.lugar p{font-size:13px; line-height:1.7; color:#555;}
+.lugar .detalle{margin-top:6px;}
+.boton{align-self:flex-start; background:linear-gradient(135deg,#155c36,#23834c); color:#fff; padding:9px 16px; border-radius:8px; margin-top:12px; border:none; cursor:pointer; font-family:inherit; font-size:13px; font-weight:600; transition:.3s;}
+.boton:hover{background:linear-gradient(135deg,#f5d46b,#e5b93d); color:#17482c; transform:translateY(-2px);}
+
+.banner-galeria{width:100%; height:260px; background-size:cover; background-position:center; display:flex; align-items:center; justify-content:center; padding:20px;}
+.banner-text{max-width:620px; width:90%; padding:26px 30px; background:rgba(255,255,255,.92); border-radius:18px; border-left:6px solid #16834b; box-shadow:0 15px 40px rgba(0,0,0,.3);}
+.banner-text h2{color:#155c36; font-size:28px; font-weight:800; margin-bottom:8px;}
+.banner-text p{color:#555; font-size:14px; line-height:1.7;}
+.galeria-wrap{width:92%; max-width:1230px; margin:40px auto;}
+.filtros{display:flex; justify-content:center; flex-wrap:wrap; gap:10px; margin-bottom:30px;}
+.btn-filtro{padding:10px 20px; color:#155c36; background:rgba(255,255,255,.94); border:1px solid rgba(255,255,255,.5); border-radius:30px; font-family:inherit; font-size:13px; font-weight:600; cursor:pointer; transition:.3s;}
+.btn-filtro:hover{background:#f5d46b; color:#164329;}
+.btn-filtro.active{background:linear-gradient(135deg,#16834b,#0c5131); color:#fff;}
+.galeria-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+.tarjeta-g{background:rgba(255,255,255,.96); border-radius:16px; overflow:hidden; box-shadow:0 10px 25px rgba(0,0,0,.25); transition:.35s;}
+.tarjeta-g:hover{transform:translateY(-7px); box-shadow:0 18px 38px rgba(0,0,0,.4);}
+.tarjeta-g img{width:100%; height:190px; object-fit:cover;}
+.tarjeta-g .info{padding:15px;}
+.tarjeta-g h3{color:#155c36; font-size:15px; font-weight:700; margin-bottom:3px;}
+.tarjeta-g p{color:#666; font-size:12px;}
+
+.juego-wrap{display:flex; justify-content:center; align-items:center; padding:50px 20px;}
+.tarjeta-quiz{background:rgba(255,255,255,.96); width:100%; max-width:640px; padding:34px; border-radius:22px; box-shadow:0 15px 45px rgba(0,0,0,.3); text-align:center; position:relative;}
+.tarjeta-quiz::before{content:""; position:absolute; top:0; left:0; width:100%; height:7px; background:linear-gradient(90deg,#155c36,#f5d46b,#155c36);}
+.tarjeta-quiz h2{color:#155c36; font-size:25px; font-weight:800; margin-bottom:8px;}
+.subt-quiz{color:#666; font-size:13px; margin-bottom:24px;}
+#pregunta-texto{color:#183d29; font-size:16px; font-weight:700; margin-bottom:22px; line-height:1.6;}
+.opciones-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-bottom:22px;}
+.opcion-btn{background:#fff; border:2px solid #287a4a; color:#155c36; padding:14px; border-radius:12px; font-family:inherit; font-size:14px; font-weight:600; cursor:pointer; transition:.3s; min-height:50px;}
+.opcion-btn:hover:not(:disabled){background:#eaf5ec;}
+.opcion-btn.correcta{background:#287a3b!important; color:#fff!important; border-color:#287a3b!important;}
+.opcion-btn.incorrecta{background:#d9534f!important; color:#fff!important; border-color:#d9534f!important;}
+.puntaje-box{display:inline-block; background:#edf6ef; color:#155c36; font-size:13px; font-weight:700; padding:10px 20px; border-radius:30px; border:1px solid #c8e4cf;}
+
+.contacto-wrap{width:92%; max-width:1130px; margin:50px auto;}
+.titulo-contacto{text-align:center; margin-bottom:35px;}
+.titulo-contacto span{display:inline-block; color:#f5d46b; font-size:12px; font-weight:700; letter-spacing:4px; margin-bottom:10px;}
+.titulo-contacto h2{font-size:clamp(26px,5vw,40px); font-weight:800; color:#fff; text-shadow:0 5px 15px rgba(0,0,0,.6); margin-bottom:10px;}
+.titulo-contacto p{font-size:15px; color:#eee;}
+.tarjeta-contacto{display:grid; grid-template-columns:1fr 1.2fr; background:rgba(255,255,255,.95); border-radius:22px; overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,.35);}
+.info-contacto{padding:38px 30px; background:linear-gradient(145deg,rgba(25,112,65,.97),rgba(10,55,35,.99)); color:#fff;}
+.info-contacto h3{font-size:21px; margin-bottom:12px;}
+.descripcion{font-size:13px; color:#d5eadb; line-height:1.8; margin-bottom:26px;}
+.dato{display:flex; gap:14px; margin-bottom:20px;}
+.icono{min-width:42px; height:42px; display:flex; justify-content:center; align-items:center; font-size:20px; background:rgba(255,255,255,.13); border-radius:12px;}
+.dato strong{display:block; color:#f5d46b; font-size:14px; margin-bottom:3px;}
+.dato p{color:#eee; font-size:12px; line-height:1.6;}
+.nota-respuesta{padding:14px; margin-top:22px; background:rgba(255,255,255,.12); border-left:4px solid #f5d46b; border-radius:8px; color:#ffe99a; font-size:13px;}
+.formulario-contacto{padding:38px; background:rgba(255,255,255,.97);}
+.formulario-contacto h3{font-size:22px; color:#155c36; margin-bottom:6px;}
+.formulario-contacto>p{color:#777; font-size:13px; margin-bottom:22px;}
+.grupo-campo{margin-bottom:18px;}
+.grupo-campo label{display:block; font-size:13px; font-weight:600; color:#333; margin-bottom:7px;}
+.grupo-campo input,.grupo-campo textarea{width:100%; padding:13px 15px; font-family:inherit; font-size:14px; color:#333; background:#f5f7f5; border:1.5px solid #e0e5e0; border-radius:10px; outline:none; transition:.3s;}
+.grupo-campo input:focus,.grupo-campo textarea:focus{background:#fff; border-color:#16834b; box-shadow:0 0 0 4px rgba(22,131,75,.12);}
+.grupo-campo textarea{resize:vertical; min-height:105px;}
+.btn-enviar{width:100%; padding:15px; border:none; border-radius:10px; background:linear-gradient(135deg,#16834b,#0c5131); color:#fff; font-family:inherit; font-size:14px; font-weight:700; cursor:pointer; transition:.35s;}
+.btn-enviar:hover{background:linear-gradient(135deg,#f5d46b,#e3ac24); color:#173b27;}
+#mensaje-alerta{margin-top:14px; padding:12px; border-radius:8px; font-size:13px; display:none;}
+#mensaje-alerta.exito{display:block; background:#e6f6ea; color:#155c36; border:1px solid #bfe3c8;}
+#mensaje-alerta.error{display:block; background:#fdecea; color:#92221a; border:1px solid #f3c2bd;}
+
+@media (max-width:950px){.galeria-grid{grid-template-columns:repeat(2,1fr);} .tarjeta-contacto{grid-template-columns:1fr;}}
+@media (max-width:600px){header{padding:12px 14px;} .panel{padding:22px 16px;} .galeria-grid{grid-template-columns:1fr;} .opciones-grid{grid-template-columns:1fr;} .formulario-contacto,.info-contacto{padding:26px 20px;}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important; transition-duration:.01ms!important;}}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-brand">
+    <img class="logo" id="imgLogo" alt="Logo Moquegua Turística">
+    <h1>Moquegua Turística</h1>
+  </div>
+  <nav id="nav">
+    <a href="#inicio" data-view="inicio">Inicio</a>
+    <a href="#lugares" data-view="lugares">Lugares turísticos</a>
+    <a href="#galeria" data-view="galeria">Galería</a>
+    <a href="#juego" data-view="juego">Juego</a>
+    <a href="#contacto" data-view="contacto">Contacto</a>
+  </nav>
+</header>
+
+<main>
+  <section class="view" id="view-inicio">
+    <div class="inicio-wrap"><div class="panel">
+      <h2>Descubre Moquegua</h2>
+      <p>Conoce los lugares turísticos de nuestra región.</p>
+      <img id="imgPaisaje" alt="Paisaje de Moquegua">
+      <p>Moquegua es una región del sur del Perú que destaca por sus paisajes, cultura, historia y atractivos turísticos.</p>
+    </div></div>
+  </section>
+
+  <section class="view" id="view-lugares">
+    <div class="lugares-wrap">
+      <h2>Lugares turísticos de Moquegua</h2>
+      <p>Explora los 22 destinos más representativos de la región.</p>
+      <div class="lugares-grid" id="lugares-grid"></div>
+    </div>
+  </section>
+
+  <section class="view" id="view-galeria">
+    <div class="banner-galeria" id="bannerGaleria"><div class="banner-text">
+      <h2>Galería de imágenes</h2><p>Descubre los 22 principales atractivos turísticos de la región Moquegua</p>
+    </div></div>
+    <div class="galeria-wrap">
+      <div class="filtros" id="filtros"></div>
+      <div class="galeria-grid" id="galeria-grid"></div>
+    </div>
+  </section>
+
+  <section class="view" id="view-juego">
+    <div class="juego-wrap"><div class="tarjeta-quiz">
+      <h2>¿Cuánto conoces Moquegua?</h2>
+      <p class="subt-quiz">Responde y descubre si eres un verdadero moqueguano</p>
+      <h3 id="pregunta-texto"></h3>
+      <div class="opciones-grid" id="opciones-contenedor"></div>
+      <div class="puntaje-box">Puntaje: <span id="puntaje">0</span> / <span id="total-preguntas">0</span></div>
+    </div></div>
+  </section>
+
+  <section class="view" id="view-contacto">
+    <div class="contacto-wrap">
+      <div class="titulo-contacto"><span>MOQUEGUA TE ESPERA</span><h2>¡Estamos para ayudarte!</h2><p>Conoce, disfruta y descubre la belleza de nuestra hermosa ciudad. Estamos aquí para atenderte.</p></div>
+      <div class="tarjeta-contacto">
+        <div class="info-contacto">
+          <h3>Información de contacto</h3>
+          <p class="descripcion">¿Necesitas información turística? Comunícate con nosotros.</p>
+          <div class="dato"><span class="icono">📍</span><div><strong>Ubicación</strong><p>Plaza de Armas de Moquegua, Perú</p></div></div>
+          <div class="dato"><span class="icono">📞</span><div><strong>Teléfono</strong><p>+51 953 123 456</p></div></div>
+          <div class="dato"><span class="icono">✉️</span><div><strong>Correo electrónico</strong><p>turismo@moquegua.gob.pe</p></div></div>
+          <div class="dato"><span class="icono">🕒</span><div><strong>Horario de atención</strong><p>Lunes a viernes: 8:00 am - 5:00 pm</p></div></div>
+          <div class="nota-respuesta">💚 ¡Será un placer atenderte!</div>
+        </div>
+        <div class="formulario-contacto">
+          <h3>Envíanos un mensaje</h3><p>Completa los siguientes campos.</p>
+          <form id="formContacto">
+            <div class="grupo-campo"><label for="nombre">Nombre completo</label><input type="text" id="nombre" placeholder="Escribe tu nombre" required></div>
+            <div class="grupo-campo"><label for="correo">Correo electrónico</label><input type="email" id="correo" placeholder="ejemplo@gmail.com" required></div>
+            <div class="grupo-campo"><label for="mensaje">Tu mensaje</label><textarea id="mensaje" rows="5" placeholder="Escribe tu consulta..." required></textarea></div>
+            <button type="submit" class="btn-enviar">Enviar mensaje →</button>
+            <div id="mensaje-alerta"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer><p>&copy; 2026 Moquegua Turística</p></footer>
+
+<script>
+const IMG = {
+ logo:"/_blob/b1e7bcd8a183d1456a4018ff1f3f7ed9", paisaje:"/_blob/e4c544303baa42fef6f8af7fb3632708", plaza:"/_blob/e3295d7e95fd54d14f210a613389a595", torata:"/_blob/bfcf0d6e638dbf29f43c5f2e8c976f5d", mollesaja:"/_blob/676001eae0b5e5f0c56794f33fdc0360",
+ samegua:"/_blob/c85fc4ab499f5407cd87623604db5a93", cerrobaul:"/_blob/626bb8d7dc8a4ccbb719ee870ba949c3", maleconilo:"/_blob/e2273868c35cac46cc42b08f20ebd860", glorieta:"/_blob/cf5e002b6d06620c0e2b342a39cfd27a",
+ puntacoles:"/_blob/c4df91a7b86f1596cc3605fc10a9fcdc", pozolizas:"/_blob/fb2651f1f70e0af22a4be40f3e5c2065", puertoingles:"/_blob/3d30118971be2416c44ecb506d4f0b30", chenchen:"/_blob/ddd598daf5e5e56207d56373d9269ebb",
+ tixani:"/_blob/b61e8226d0d1e2f96e01b45c925e4fed", cuchumbaya:"/_blob/2276698626197419eef64171b920ac49", omate:"/_blob/555a966e10d353382ad13ab7a960fedf", ubinas:"/_blob/1d9401ee107d8c52bba4e910835237a2", casaconcha:"/_blob/8bfa727e34362c5f7fb3d6537c0947ca",
+ catedral:"/_blob/9890494f224c97c79f3008006a1447b5", rutapisco:"/_blob/693ca4f00fb5519bfd3bb19a387e40ce", putina:"/_blob/71721e5aa6ab8460f3eb1fe317289b9c", camata:"/_blob/8e7c57448d8e58e6f9e3198038120b63", museo:"/_blob/b7bd6df15121fd671782bb78132be320",
+ cristoblanco:"/_blob/b5d33ab26af562299c7562274894272a"
+};
+
+const LUGARES = [
+ {id:"plaza", titulo:"Plaza de Armas", provincia:"Mariscal Nieto", ubic:"Moquegua", resumen:"Ubicada en el corazón de la ciudad, destaca por su pileta de origen francés del siglo XIX.", detalle:"Diseñada por los talleres de Gustave Eiffel e instalada en 1877, es el principal punto de reunión rodeado de ficus centenarios."},
+ {id:"torata", titulo:"Torata", provincia:"Mariscal Nieto", ubic:"Torata", resumen:"Torata es un tradicional distrito de Moquegua, famoso por sus molinos de piedra y panadería local.", detalle:"Visita sus paisajes agrícolas, molinos hidráulicos coloniales y degusta sus famosas roscas y pan de trigo."},
+ {id:"mollesaja", titulo:"Cataratas de Mollesaja", provincia:"Mariscal Nieto", ubic:"Torata", resumen:"Impresionante caída de agua rodeada de abundante vegetación en el distrito de Torata.", detalle:"Ideal para el trekking y la fotografía de naturaleza. Ofrece un clima cálido y un entorno totalmente natural."},
+ {id:"samegua", titulo:"Samegua", provincia:"Mariscal Nieto", ubic:"Samegua", resumen:"Conocida como la 'Capital del Palto', famosa por su agricultura y gastronomía regional.", detalle:"Destaca por la producción de palta de alta calidad y campiñas verdes idóneas para caminatas y restaurantes campestres."},
+ {id:"cerrobaul", titulo:"Cerro Baúl", provincia:"Mariscal Nieto", ubic:"Moquegua", resumen:"Meseta geológica y sitio arqueológico de la cultura Wari y Tiahuanaco.", detalle:"Ubicado a 2400 msnm, alberga las ruinas de una ciudadela fortificada preinca con vistas panorámicas únicas del valle."},
+ {id:"chenchen", titulo:"Geoglifos de Chen Chen", provincia:"Mariscal Nieto", ubic:"Moquegua", resumen:"Figuras prehispánicas trazadas sobre las laderas áridas cercanas a la ciudad.", detalle:"Grabados en las laderas de los cerros por la cultura Tiahuanaco entre los años 500 y 1000 d.C."},
+ {id:"tixani", titulo:"Valle de Tixani", provincia:"Mariscal Nieto", ubic:"Cuchumbaya", resumen:"Valle interandino conocido por sus aguas termales, andenería y el volcán Tixani.", detalle:"Abarca los distritos de Cuchumbaya, Carumas y San Cristóbal, famosos por sus tradiciones e iglesias coloniales."},
+ {id:"cuchumbaya", titulo:"Termas de Cuchumbaya", provincia:"Mariscal Nieto", ubic:"Cuchumbaya", resumen:"Fuentes termomedicinales ubicadas en el hermoso valle andino de Moquegua.", detalle:"Sus pozas de aguas calientes son visitadas por sus propiedades medicinales y relajantes en un entorno natural."},
+ {id:"casaconcha", titulo:"Casona Concha y Valdés", provincia:"Mariscal Nieto", ubic:"Moquegua", resumen:"Monumento colonial representativo de la arquitectura moqueguana tradicional.", detalle:"Presenta portadas talladas en piedra caliza y techos de mojinete característicos de la época republicana."},
+ {id:"catedral", titulo:"Catedral Santa Catalina", provincia:"Mariscal Nieto", ubic:"Moquegua", resumen:"Principal templo religioso ubicado frente a la Plaza de Armas de Moquegua.", detalle:"Conserva los restos de Santa Fortunata, cuerpo presente venerado por la comunidad moqueguana."},
+ {id:"rutapisco", titulo:"Ruta del Pisco y Vino", provincia:"Mariscal Nieto", ubic:"Moquegua", resumen:"Recorrido por bodegas artesanales coloniales y modernas del valle moqueguano.", detalle:"Incluye visitas a bodegas históricas como Biondi, San José, El Mocho y Parras del Valle para degustación."},
+ {id:"putina", titulo:"Termas de Putina", provincia:"Mariscal Nieto", ubic:"San Cristóbal", resumen:"Pozas de agua sulfurosa ubicadas en el distrito de San Cristóbal.", detalle:"Aguas medicinales que brotan de la tierra a elevadas temperaturas rodeadas de andenes andinos."},
+ {id:"museo", titulo:"Museo Contisuyo", provincia:"Mariscal Nieto", ubic:"Moquegua", resumen:"Centro cultural que exhibe piezas arqueológicas de las culturas Chiribaya, Wari y Tiahuanaco.", detalle:"Ubicado en el centro histórico de Moquegua sobre las ruinas de la antigua Iglesia Matriz."},
+ {id:"cristoblanco", titulo:"Mirador Cristo Blanco", provincia:"Mariscal Nieto", ubic:"Moquegua", resumen:"Punto panorámico en lo alto de Moquegua con una vista completa de la ciudad y su campiña.", detalle:"Ideal para visitas nocturnas y para fotografiar todo el valle del río Moquegua desde las alturas."},
+ {id:"maleconilo", titulo:"Malecón Costero de Ilo", provincia:"Ilo", ubic:"Ilo", resumen:"Paseo marítimo ideal para apreciar la vista al océano Pacífico y disfrutar del atardecer.", detalle:"Cuenta con plazas, esculturas marinas, miradores y restaurantes de comida marina fresca frente al mar."},
+ {id:"glorieta", titulo:"Glorieta José Gálvez", provincia:"Ilo", ubic:"Ilo", resumen:"Mirador de madera ubicado en un peñasco sobre el mar de Ilo desde 1915.", detalle:"Construida en madera y unida a la costa por un puente, ofrece una vista de 360 grados de la bahía y la fauna marina."},
+ {id:"puntacoles", titulo:"Reserva Punta de Coles", provincia:"Ilo", ubic:"Ilo", resumen:"Área natural protegida que alberga la mayor colonia de lobos marinos del sur peruano.", detalle:"Refugio para lobos marinos chuscos y finos, pingüinos de Humboldt y diversas aves guaneras en la provincia de Ilo."},
+ {id:"pozolizas", titulo:"Playa Pozo de Lizas", provincia:"Ilo", ubic:"Ilo", resumen:"Una de las playas más concurridas y amplias de la costa moqueguana.", detalle:"Caracterizada por sus aguas tranquilas y finas arenas a pocos kilómetros de la ciudad de Ilo."},
+ {id:"puertoingles", titulo:"Playa Puerto Inglés", provincia:"Ilo", ubic:"Ilo", resumen:"Encantadora caleta rodeada de altos acantilados rocosos.", detalle:"Llama la atención por su aspecto de piscina natural y por su valor histórico en el puerto de Ilo."},
+ {id:"omate", titulo:"Valle de Omate", provincia:"General Sánchez Cerro", ubic:"Omate", resumen:"Conocido como la 'Villa de la Hermosa Vista' en la provincia de General Sánchez Cerro.", detalle:"Famoso por su producción de camarones, frutas, vinos y por el volcán Ubinas ubicado en sus cercanías."},
+ {id:"ubinas", titulo:"Volcán Ubinas", provincia:"General Sánchez Cerro", ubic:"Ubinas", resumen:"El volcán más activo del Perú, situado en el distrito de Ubinas.", detalle:"Atractivo para el turismo de aventura y senderismo geoturístico de alta montaña a más de 5600 msnm."},
+ {id:"camata", titulo:"Valle de Camata", provincia:"General Sánchez Cerro", ubic:"Coalaque", resumen:"Pintoresco poblado agrícola caracterizado por sus andenes de origen preincaico.", detalle:"Ofrece paisajes verdes, arquitectura rural de adobe y cultivos autóctonos de la sierra sur."}
+];
+
+document.getElementById('imgLogo').src = IMG.logo;
+document.getElementById('imgPaisaje').src = IMG.paisaje;
+document.body.style.backgroundImage = `linear-gradient(rgba(0,0,0,.62),rgba(0,0,0,.76)), url('${IMG.paisaje}')`;
+document.getElementById('bannerGaleria').style.backgroundImage = `linear-gradient(rgba(0,0,0,.35),rgba(0,0,0,.55)), url('${IMG.cerrobaul}')`;
+
+const views = document.querySelectorAll('.view');
+const navLinks = document.querySelectorAll('#nav a');
+function showView(name){
+  if(!document.getElementById('view-'+name)) name='inicio';
+  views.forEach(v=>v.classList.toggle('active', v.id==='view-'+name));
+  navLinks.forEach(a=>a.classList.toggle('active', a.dataset.view===name));
+  window.scrollTo({top:0, behavior:'instant'});
+}
+window.addEventListener('hashchange', ()=>showView(location.hash.slice(1)));
+showView(location.hash.slice(1) || 'inicio');
+
+const grid = document.getElementById('lugares-grid');
+grid.innerHTML = LUGARES.map(l=>`
+  <article class="lugar">
+    <img src="${IMG[l.id]}" alt="${l.titulo}">
+    <h3>${l.titulo}</h3>
+    <p>${l.resumen}</p>
+    <p class="detalle" hidden>${l.detalle}</p>
+    <button class="boton">Ver más</button>
+  </article>`).join('');
+grid.querySelectorAll('.lugar').forEach(card=>{
+  const btn = card.querySelector('.boton');
+  const det = card.querySelector('.detalle');
+  btn.addEventListener('click', ()=>{
+    det.hidden = !det.hidden;
+    btn.textContent = det.hidden ? 'Ver más' : 'Ver menos';
+  });
+});
+
+const provincias = ['Todos', ...new Set(LUGARES.map(l=>l.provincia))];
+const filtrosBox = document.getElementById('filtros');
+filtrosBox.innerHTML = provincias.map((p,i)=>`<button class="btn-filtro${i===0?' active':''}" data-f="${p}">${p}</button>`).join('');
+const gGrid = document.getElementById('galeria-grid');
+function renderGaleria(filtro){
+  gGrid.innerHTML = LUGARES.filter(l=> filtro==='Todos' || l.provincia===filtro)
+    .map(l=>`<div class="tarjeta-g"><img src="${IMG[l.id]}" alt="${l.titulo}"><div class="info"><h3>${l.titulo}</h3><p>${l.ubic} - ${l.provincia}</p></div></div>`).join('');
+}
+renderGaleria('Todos');
+filtrosBox.addEventListener('click', e=>{
+  const b = e.target.closest('.btn-filtro'); if(!b) return;
+  filtrosBox.querySelectorAll('.btn-filtro').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');
+  renderGaleria(b.dataset.f);
+});
+
+const PREGUNTAS = [
+ {q:"¿Dónde se encuentran las Cataratas de Mollesaja?", op:["Torata","Ilo","Samegua","Omate"], c:0},
+ {q:"¿Cuál es el distrito conocido por sus paisajes, historia y atractivos turísticos en Moquegua?", op:["Ilo","Torata","Samegua","Pacocha"], c:1},
+ {q:"¿Qué distrito destaca por sus paisajes, su gastronomía y sus atractivos turísticos cercanos a la ciudad?", op:["Samegua","Carumas","Cuchumbaya","San Cristóbal"], c:0},
+ {q:"¿Cuál es el puerto principal de la región Moquegua?", op:["Matarani","Callao","Ilo","Chimbote"], c:2},
+ {q:"¿Qué importante sitio arqueológico preincaico se ubica en Moquegua?", op:["Machu Picchu","Cerro Baúl","Chan Chan","Kuelap"], c:1}
+];
+let qi=0, score=0;
+const elQ = document.getElementById('pregunta-texto');
+const elOps = document.getElementById('opciones-contenedor');
+const elScore = document.getElementById('puntaje');
+document.getElementById('total-preguntas').textContent = PREGUNTAS.length;
+function cargarPregunta(){
+  const q = PREGUNTAS[qi];
+  elQ.textContent = q.q;
+  elOps.innerHTML='';
+  q.op.forEach((op,i)=>{
+    const b=document.createElement('button');
+    b.className='opcion-btn'; b.textContent=op;
+    b.onclick=()=>verificar(i);
+    elOps.appendChild(b);
+  });
+}
+function verificar(i){
+  const q=PREGUNTAS[qi];
+  const btns=[...elOps.children];
+  btns.forEach(b=>b.disabled=true);
+  if(i===q.c){ btns[i].classList.add('correcta'); score++; elScore.textContent=score; }
+  else { btns[i].classList.add('incorrecta'); btns[q.c].classList.add('correcta'); }
+  setTimeout(()=>{ qi++; qi<PREGUNTAS.length ? cargarPregunta() : finalJuego(); }, 1400);
+}
+function finalJuego(){
+  let msg = score===PREGUNTAS.length ? '¡Excelente! Eres un verdadero moqueguano. 🏆'
+    : score>=Math.ceil(PREGUNTAS.length/2) ? '¡Buen intento! Conoces bastante sobre Moquegua. 👍'
+    : '¡Sigue explorando las páginas para aprender más de Moquegua! 🏔️';
+  document.querySelector('.tarjeta-quiz').innerHTML = `
+    <h2>¡Juego terminado!</h2><p class="subt-quiz">${msg}</p>
+    <h3 style="color:#1a5828;margin:16px 0;">Tu puntaje final: ${score} / ${PREGUNTAS.length}</h3>
+    <button class="boton" id="reintentar">Volver a jugar</button>`;
+  document.getElementById('reintentar').onclick = ()=>{ qi=0; score=0; location.hash='juego'; location.reload(); };
+}
+cargarPregunta();
+
+const form = document.getElementById('formContacto');
+const alerta = document.getElementById('mensaje-alerta');
+form.addEventListener('submit', e=>{
+  e.preventDefault();
+  const nombre = document.getElementById('nombre').value.trim();
+  const correo = document.getElementById('correo').value.trim();
+  const mensaje = document.getElementById('mensaje').value.trim();
+  if(!nombre || !correo || !mensaje){
+    alerta.textContent='Por favor, completa todos los campos.'; alerta.className='error'; return;
+  }
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)){
+    alerta.textContent='Ingresa un correo electrónico válido.'; alerta.className='error'; return;
+  }
+  alerta.textContent = `¡Gracias, ${nombre}! Tu mensaje está listo para enviarse.`;
+  alerta.className='exito';
+  form.reset();
+});
+</script>
+</body>
+</html>
